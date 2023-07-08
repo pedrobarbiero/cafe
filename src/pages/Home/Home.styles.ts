@@ -46,7 +46,10 @@ export const IntroContainer = styled.section`
   }
 `
 
-export const ProductsContainer = styled.section`
+export const ProductsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2rem;
   h1 {
     font-size: 2rem;
     color: ${({ theme }) => theme.colors['base-subtitle']};

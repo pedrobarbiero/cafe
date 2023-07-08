@@ -15,6 +15,7 @@ import irlandes from '../../assets/coffees/irlandes.png'
 import latte from '../../assets/coffees/latte.png'
 import macchiato from '../../assets/coffees/macchiato.png'
 import mocaccino from '../../assets/coffees/mocaccino.png'
+import { ProductCard } from '../../components/ProductCard'
 
 export interface Product {
   id: number
@@ -174,18 +175,14 @@ export function Home() {
           alt="Um copo de café descartável com grãos de café ao redor"
         />
       </IntroContainer>
-      <ProductsContainer>
+      <section>
         <h1>Nossos Cafés</h1>
-        {products.map((product) => (
-          <div key={product.id}>
-            <img src={product.image} alt={product.name} />
-            <h2>{product.name}</h2>
-            <p>{product.description}</p>
-            <span>{product.price}</span>
-            <button>Comprar</button>
-          </div>
-        ))}
-      </ProductsContainer>
+        <ProductsContainer>
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </ProductsContainer>
+      </section>
     </>
   )
 }
