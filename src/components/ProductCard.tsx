@@ -1,12 +1,15 @@
 import { ShoppingCart } from 'phosphor-react'
 import { Product } from '../pages/Home/Home'
 import {
+  BuyContainer,
   BuyProductContainer,
+  PriceContainer,
   ProductCardContainer,
   ProductCardInfo,
   TagContainer,
 } from './ProductCard.styles'
 import { QuantitySelector } from './QuantitySelector'
+import { Link } from 'react-router-dom'
 
 export function ProductCard({ product }: { product: Product }) {
   return (
@@ -22,9 +25,15 @@ export function ProductCard({ product }: { product: Product }) {
         <p>{product.description}</p>
       </ProductCardInfo>
       <BuyProductContainer>
-        <span>R$ {product.price}</span>
+        <PriceContainer>
+          R$ <span>{product.price}</span>
+        </PriceContainer>
         <QuantitySelector />
-        <ShoppingCart weight="fill" />
+        <BuyContainer>
+          <Link to={'/checkout'}>
+            <ShoppingCart size={22} weight="fill" />
+          </Link>
+        </BuyContainer>
       </BuyProductContainer>
     </ProductCardContainer>
   )

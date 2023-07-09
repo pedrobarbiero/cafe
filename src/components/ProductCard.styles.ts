@@ -59,3 +59,32 @@ export const BuyProductContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `
+
+export const PriceContainer = styled.div`
+  font-size: 0.875rem;
+  span {
+    color: ${({ theme }) => theme.colors['base-text']};
+    text-align: right;
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.5rem;
+  }
+`
+
+export const BuyContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  a {
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: ${({ theme }) => theme.colors['purple-dark']};
+    color: ${({ theme }) => theme.colors.white};
+    border: 0;
+    box-shadow: none;
+    padding: 0.5rem;
+  }
+
+  :hover {
+    background-color: ${({ theme }) => theme.colors.purple};
+  }
+`

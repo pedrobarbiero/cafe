@@ -1,11 +1,16 @@
 import { QuantitySelectorContainer } from './QuantitySelector.styles'
+import { Minus, Plus } from 'phosphor-react'
 
 export function QuantitySelector() {
   return (
     <QuantitySelectorContainer>
-      <button>-</button>
+      <button>
+        <Minus size={14} />
+      </button>
       <span>1</span>
-      <button>+</button>
+      <button>
+        <Plus size={14} />
+      </button>
     </QuantitySelectorContainer>
   )
 }
