@@ -11,7 +11,6 @@ import {
   PriceContainer,
   TotalPriceContainer,
   ConfirmButton,
-  PaymentOptionsContainer,
 } from './Checkout.styles'
 import { MapPinLine, CurrencyDollar } from 'phosphor-react'
 import { ProductCard } from './components/ProductCard'
