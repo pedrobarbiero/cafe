@@ -10,8 +10,25 @@ import {
 } from './ProductCard.styles'
 import { QuantitySelector } from './QuantitySelector'
 import { Link } from 'react-router-dom'
+import { ProductsContext } from '../context/ProductsContext'
+import { useContext } from 'react'
 
 export function ProductCard({ product }: { product: Product }) {
+  const { increaseQuantity, decreaseQuantity, selectedProducts } =
+    useContext(ProductsContext)
+
+  const handleIncrease = () => {
+    increaseQuantity(product)
+  }
+
+  const handleDecrease = () => {
+    decreaseQuantity(product)
+  }
+
+  const selectedProduct = selectedProducts.find(
+    (p) => p.product.id === product.id,
+  )
+
   return (
     <ProductCardContainer>
       <ProductCardInfo>
@@ -28,7 +45,11 @@ export function ProductCard({ product }: { product: Product }) {
         <PriceContainer>
           R$ <span>{product.price}</span>
         </PriceContainer>
-        <QuantitySelector />
+        <QuantitySelector
+          quantity={selectedProduct?.quantity || 0}
+          onDecrease={handleDecrease}
+          onIncrease={handleIncrease}
+        />
         <BuyContainer>
           <Link to={'/checkout'}>
             <ShoppingCart size={22} weight="fill" />

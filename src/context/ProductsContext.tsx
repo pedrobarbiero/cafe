@@ -13,7 +13,8 @@ import latte from '../assets/coffees/latte.png'
 import macchiato from '../assets/coffees/macchiato.png'
 import mocaccino from '../assets/coffees/mocaccino.png'
 
-import { ReactNode, createContext } from 'react'
+import { ReactNode, createContext, useReducer } from 'react'
+import { productsReducer } from '../reducers/products/reducer'
 
 interface Product {
   id: number
@@ -149,8 +150,10 @@ interface SelectedProduct {
 }
 
 interface ProductsContextData {
-  products: Product[]
   selectedProducts: SelectedProduct[]
+  products: Product[]
+  increaseQuantity: (product: Product) => void
+  decreaseQuantity: (product: Product) => void
 }
 
 interface ProductsContextProviderProps {
@@ -162,12 +165,31 @@ export const ProductsContext = createContext({} as ProductsContextData)
 export function ProductsContextProvider({
   children,
 }: ProductsContextProviderProps) {
-  const selectedProducts: SelectedProduct[] = []
+  const [productsState, dispatch] = useReducer(productsReducer, {
+    selectedProducts: [],
+  })
+
+  const increaseQuantity = (product: Product) => {
+    dispatch({
+      type: 'INCREASE',
+      payload: product,
+    })
+  }
+
+  const decreaseQuantity = (product: Product) => {
+    dispatch({
+      type: 'DECREASE',
+      payload: product,
+    })
+  }
+
   return (
     <ProductsContext.Provider
       value={{
         products,
-        selectedProducts,
+        selectedProducts: productsState.selectedProducts,
+        increaseQuantity,
+        decreaseQuantity,
       }}
     >
       {children}

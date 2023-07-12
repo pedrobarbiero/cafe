@@ -14,39 +14,13 @@ import {
 } from './Checkout.styles'
 import { MapPinLine, CurrencyDollar } from 'phosphor-react'
 import { ProductCard } from './components/ProductCard'
-import latte from '../../assets/coffees/latte.png'
-import cappuccino from '../../assets/coffees/capuccino.png'
 import { PaymentMethod } from '../../components/PaymentMethod'
+import { useContext } from 'react'
+import { ProductsContext } from '../../context/ProductsContext'
 
-interface selectedProduct {
-  id: number
-  name: string
-  price: number
-  quantity: number
-  image: string
-}
+export function Checkout() {
+  const { selectedProducts } = useContext(ProductsContext)
 
-interface CheckoutProps {
-  selectedProducts: selectedProduct[]
-}
-
-export function Checkout({ selectedProducts }: CheckoutProps) {
-  selectedProducts = [
-    {
-      id: 1,
-      name: 'Latte',
-      price: 12.5,
-      quantity: 1,
-      image: latte,
-    },
-    {
-      id: 2,
-      name: 'Capuccino',
-      price: 13.5,
-      quantity: 3,
-      image: cappuccino,
-    },
-  ]
   return (
     <CheckoutPageFormContainer>
       <section>
@@ -96,7 +70,9 @@ export function Checkout({ selectedProducts }: CheckoutProps) {
         <SelectedProductsContainer>
           <div>
             {selectedProducts &&
-              selectedProducts.map((product) => ProductCard(product))}
+              selectedProducts.map((sp) =>
+                ProductCard({ ...sp.product, quantity: sp.quantity }),
+              )}
           </div>
           <hr />
           <PaymentSummaryContainer>
@@ -112,7 +88,7 @@ export function Checkout({ selectedProducts }: CheckoutProps) {
               <TotalPriceContainer>Total</TotalPriceContainer>
               <TotalPriceContainer>R$ 33,20</TotalPriceContainer>
             </div>
-            <ConfirmButton>Confirmar Pedido</ConfirmButton>
+            <ConfirmButton type="submit">Confirmar Pedido</ConfirmButton>
           </PaymentSummaryContainer>
         </SelectedProductsContainer>
       </aside>
