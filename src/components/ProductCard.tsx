@@ -9,11 +9,12 @@ import {
   TagContainer,
 } from './ProductCard.styles'
 import { QuantitySelector } from './QuantitySelector'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { ProductsContext } from '../context/ProductsContext'
 import { useContext } from 'react'
 
 export function ProductCard({ product }: { product: Product }) {
+  const navigate = useNavigate()
   const { increaseQuantity, decreaseQuantity, selectedProducts } =
     useContext(ProductsContext)
 
@@ -28,6 +29,11 @@ export function ProductCard({ product }: { product: Product }) {
   const selectedProduct = selectedProducts.find(
     (p) => p.product.id === product.id,
   )
+
+  const handleBuy = () => {
+    increaseQuantity(product)
+    navigate('/checkout')
+  }
 
   return (
     <ProductCardContainer>
@@ -51,9 +57,9 @@ export function ProductCard({ product }: { product: Product }) {
           onIncrease={handleIncrease}
         />
         <BuyContainer>
-          <Link to={'/checkout'}>
+          <button type="button" onClick={handleBuy}>
             <ShoppingCart size={22} weight="fill" />
-          </Link>
+          </button>
         </BuyContainer>
       </BuyProductContainer>
     </ProductCardContainer>

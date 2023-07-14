@@ -1,22 +1,23 @@
+import { UseFormRegisterReturn } from 'react-hook-form'
 import { InputContainer } from './Input.styles'
 
 interface InputProps {
-  name: string
   label: string
   widthInRem?: number
   optional?: boolean
+  register: UseFormRegisterReturn<string>
 }
 
 export function Input({
-  name,
   label,
   widthInRem = 12,
   optional = false,
+  register,
 }: InputProps) {
   return (
     <InputContainer widthInRem={widthInRem} optional={optional}>
-      <label htmlFor={name}>{label}</label>
-      <input type="text" name={name} placeholder={label} />
+      <label htmlFor={register.name}>{label}</label>
+      <input type="text" placeholder={label} {...register} />
     </InputContainer>
   )
 }

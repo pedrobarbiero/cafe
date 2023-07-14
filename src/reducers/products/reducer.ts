@@ -17,7 +17,7 @@ interface ProductsStateReducer {
 }
 
 interface ProductStateAction {
-  type: 'INCREASE' | 'DECREASE'
+  type: 'INCREASE' | 'DECREASE' | 'REMOVE'
   payload: Product
 }
 
@@ -49,7 +49,6 @@ export function productsReducer(
           return sp
         }),
       }
-
     case 'DECREASE':
       return {
         ...state,
@@ -62,6 +61,13 @@ export function productsReducer(
           }
           return sp
         }),
+      }
+    case 'REMOVE':
+      return {
+        ...state,
+        selectedProducts: selectedProducts.filter(
+          (sp) => sp.product.id !== action.payload.id,
+        ),
       }
     default:
       return state

@@ -74,7 +74,7 @@ export const BuyContainer = styled.div`
   display: flex;
   align-items: center;
 
-  a {
+  button {
     cursor: pointer;
     border-radius: 6px;
     background-color: ${({ theme }) => theme.colors['purple-dark']};

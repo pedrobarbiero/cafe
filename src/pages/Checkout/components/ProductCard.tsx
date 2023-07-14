@@ -28,7 +28,8 @@ export function ProductCard({
   tags,
   image,
 }: productCardProps) {
-  const { increaseQuantity, decreaseQuantity } = useContext(ProductsContext)
+  const { increaseQuantity, decreaseQuantity, removeProduct } =
+    useContext(ProductsContext)
 
   const handleIncrease = () => {
     increaseQuantity({ id, name, price, image, description, tags })
@@ -36,6 +37,10 @@ export function ProductCard({
 
   const handleDecrease = () => {
     decreaseQuantity({ id, name, price, image, description, tags })
+  }
+
+  const handleRemove = () => {
+    removeProduct({ id, name, price, image, description, tags })
   }
 
   return (
@@ -49,13 +54,13 @@ export function ProductCard({
             onDecrease={handleDecrease}
             quantity={quantity}
           />
-          <RemoveProductButton>
+          <RemoveProductButton type="button" onClick={handleRemove}>
             <Trash size={22} />
             Remover
           </RemoveProductButton>
         </div>
       </ProductCardActionsContainer>
-      <PriceContainer>R$ {price}</PriceContainer>
+      <PriceContainer>R$ {price * quantity}</PriceContainer>
     </ProductCardContainer>
   )
 }

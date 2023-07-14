@@ -13,7 +13,7 @@ import latte from '../assets/coffees/latte.png'
 import macchiato from '../assets/coffees/macchiato.png'
 import mocaccino from '../assets/coffees/mocaccino.png'
 
-import { ReactNode, createContext, useReducer } from 'react'
+import { ReactNode, createContext, useReducer, useState } from 'react'
 import { productsReducer } from '../reducers/products/reducer'
 
 interface Product {
@@ -149,11 +149,16 @@ interface SelectedProduct {
   quantity: number
 }
 
+export type PaymentMethodType = 'credit' | 'debit' | 'money'
+
 interface ProductsContextData {
   selectedProducts: SelectedProduct[]
   products: Product[]
+  paymentMethod: PaymentMethodType
   increaseQuantity: (product: Product) => void
   decreaseQuantity: (product: Product) => void
+  removeProduct: (product: Product) => void
+  setPaymentMethod: (method: PaymentMethodType) => void
 }
 
 interface ProductsContextProviderProps {
@@ -168,6 +173,9 @@ export function ProductsContextProvider({
   const [productsState, dispatch] = useReducer(productsReducer, {
     selectedProducts: [],
   })
+  const [paymentMethod, setPaymentMethod] = useState(
+    'credit' as PaymentMethodType,
+  )
 
   const increaseQuantity = (product: Product) => {
     dispatch({
@@ -183,6 +191,13 @@ export function ProductsContextProvider({
     })
   }
 
+  const removeProduct = (product: Product) => {
+    dispatch({
+      type: 'REMOVE',
+      payload: product,
+    })
+  }
+
   return (
     <ProductsContext.Provider
       value={{
@@ -190,6 +205,9 @@ export function ProductsContextProvider({
         selectedProducts: productsState.selectedProducts,
         increaseQuantity,
         decreaseQuantity,
+        removeProduct,
+        paymentMethod,
+        setPaymentMethod,
       }}
     >
       {children}
